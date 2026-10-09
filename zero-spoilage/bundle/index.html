@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0-Spoilage — Smart Pantry & Farm-to-Fork Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./app.js" type="module"></script>
+  </head>
+  <body>
+    <div id="app-container">
+      <!-- Header Bar -->
+      <header class="app-header">
+        <div class="brand">
+          <div class="logo-icon">
+            <span>🍏</span>
+          </div>
+          <div class="brand-text">
+            <span class="app-title">0-Spoilage</span>
+            <span class="app-badge">AgriFresh • Anna AI OS</span>
+          </div>
+        </div>
+
+        <nav class="nav-tabs">
+          <button class="nav-btn active" data-tab="pantry">
+            <span>🛒 Pantry & Fridge</span>
+          </button>
+          <button class="nav-btn" data-tab="grading">
+            <span>📸 Quality Scanner</span>
+          </button>
+          <button class="nav-btn" data-tab="recipes">
+            <span>🍳 Anti-Waste Recipes</span>
+          </button>
+          <button class="nav-btn" data-tab="pricing">
+            <span>📈 Dynamic Markdown</span>
+          </button>
+          <button class="nav-btn" data-tab="traceability">
+            <span>📜 Farm Traceability</span>
+          </button>
+        </nav>
+
+        <div class="header-status">
+          <span id="expiring-badge" class="badge urgent-badge">0 Expiring Soon</span>
+          <span id="connection-status" class="badge status-badge">Connected</span>
+        </div>
+      </header>
+
+      <!-- Main Layout -->
+      <main class="main-content">
+        <!-- TAB 1: PANTRY & FRIDGE TRACKER -->
+        <section id="tab-pantry" class="tab-page active">
+          <div class="pantry-grid">
+            <!-- Left: Add Item Form -->
+            <div class="glass-card form-card">
+              <div class="card-header">
+                <h3>➕ Quick Add Grocery Item</h3>
+                <span class="badge ai-badge">Smart Tracker</span>
+              </div>
+              <form id="add-grocery-form">
+                <div class="form-group">
+                  <label for="item-name-input">Item Name</label>
+                  <input type="text" id="item-name-input" placeholder="e.g. Organic Milk, Avocados, Spinach" required />
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="item-category-select">Category</label>
+                    <select id="item-category-select">
+                      <option value="Produce">Produce / Veggies</option>
+                      <option value="Fruits">Fruits</option>
+                      <option value="Dairy">Dairy & Eggs</option>
+                      <option value="Bakery">Bakery & Bread</option>
+                      <option value="Meat">Meat & Seafood</option>
+                      <option value="Pantry">Pantry / Staples</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="item-qty-input">Quantity</label>
+                    <input type="text" id="item-qty-input" placeholder="e.g. 500g, 1L, 2 bunches" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="item-expiry-input">Expiry Date</label>
+                  <input type="date" id="item-expiry-input" required />
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Add to Pantry Inventory</button>
+              </form>
+            </div>
+
+            <!-- Right: Inventory List -->
+            <div class="glass-card list-card">
+              <div class="card-header">
+                <h3>🥗 Pantry & Refrigerator Inventory</h3>
+                <div class="list-controls">
+                  <button id="btn-scan-expiring" class="btn btn-sm btn-danger">🔥 Scan Expiring (<= 3 Days)</button>
+                </div>
+              </div>
+
+              <div class="inventory-filters">
+                <button class="filter-btn active" data-filter="all">All Items</button>
+                <button class="filter-btn" data-filter="critical">Critical (<= 1 Day)</button>
+                <button class="filter-btn" data-filter="urgent">Urgent (<= 3 Days)</button>
+                <button class="filter-btn" data-filter="safe">Safe (> 3 Days)</button>
+              </div>
+
+              <div id="inventory-list" class="inventory-list">
+                <!-- Dynamically Rendered -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 2: AI RIPENESS & QUALITY SCANNER -->
+        <section id="tab-grading" class="tab-page">
+          <div class="grading-layout">
+            <div class="glass-card grading-form-card">
+              <div class="card-header">
+                <h3>📸 Produce Visual Quality & Ripeness Grading</h3>
+                <span class="badge vision-badge">Multimodal AI Vision</span>
+              </div>
+              <p class="card-subtitle">Select harvested produce and visual condition to estimate commercial grade, shelf life, and optimal cold storage rules.</p>
+
+              <form id="grading-form">
+                <div class="form-group">
+                  <label for="produce-name">Produce Name</label>
+                  <input type="text" id="produce-name" placeholder="e.g., Cherry Tomatoes, Mangoes, Apples" value="Cherry Tomatoes" required />
+                </div>
+                <div class="form-group">
+                  <label for="visual-condition">Observed Visual Condition</label>
+                  <select id="visual-condition">
+                    <option value="Fresh & Firm (Peak Harvest)">Fresh & Firm (Peak Harvest)</option>
+                    <option value="Slight blemish / surface scarring">Slight blemish / surface scarring</option>
+                    <option value="Soft spots / Overripe">Soft spots / Overripe</option>
+                    <option value="Discolored / Leaf Wilting">Discolored / Leaf Wilting</option>
+                  </select>
+                </div>
+                <button type="submit" id="btn-run-grading" class="btn btn-primary btn-full">Run AI Quality Grading</button>
+              </form>
+            </div>
+
+            <!-- Grading Results Card -->
+            <div id="grading-results-card" class="glass-card grading-results-card hidden">
+              <div class="card-header">
+                <h3 id="grade-produce-title">Cherry Tomatoes Quality Scorecard</h3>
+                <span id="grade-badge" class="badge status-badge">Grade A Export</span>
+              </div>
+              <div class="grade-stats-grid">
+                <div class="grade-stat-item">
+                  <span class="stat-num" id="grade-ripeness">85%</span>
+                  <span class="stat-lbl">Ripeness Rating</span>
+                </div>
+                <div class="grade-stat-item">
+                  <span class="stat-num" id="grade-shelf">7 Days</span>
+                  <span class="stat-lbl">Est. Remaining Shelf Life</span>
+                </div>
+                <div class="grade-stat-item">
+                  <span class="stat-num" id="grade-temp">4°C - 7°C</span>
+                  <span class="stat-lbl">Optimal Storage Temp</span>
+                </div>
+              </div>
+              <div class="advice-box">
+                <h4>Markdown Schedule:</h4>
+                <p id="grade-markdown">Day 0: 0% Discount (Peak Farm-Gate Rate)</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 3: ZERO-WASTE RECIPES -->
+        <section id="tab-recipes" class="tab-page">
+          <div class="recipes-layout">
+            <div class="glass-card recipes-header-card">
+              <div class="card-header">
+                <h3>🍳 Zero-Waste Recipe Generator</h3>
+                <span class="badge ai-badge">Executa LLM Tool</span>
+              </div>
+              <p class="card-subtitle">Select expiring items from your pantry to generate anti-waste recipes before food spoils.</p>
+              <div class="recipe-action-bar">
+                <button id="btn-use-expiring-ingredients" class="btn btn-secondary">Auto-Select Expiring Ingredients</button>
+                <button id="btn-generate-recipes" class="btn btn-primary">Generate 3 Anti-Waste Recipes</button>
+              </div>
+              <div id="selected-ingredients-tags" class="ingredients-tags-container">
+                <!-- Tags -->
+              </div>
+            </div>
+
+            <!-- Recipes List -->
+            <div id="recipes-results-grid" class="recipes-results-grid">
+              <!-- Dynamically Rendered -->
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 4: DYNAMIC PRICING MARKDOWN -->
+        <section id="tab-pricing" class="tab-page">
+          <div class="glass-card pricing-card">
+            <div class="card-header">
+              <h3>📈 Dynamic Freshness Markdown Engine</h3>
+              <span class="badge amber-badge">Zero-Spoilage Algorithm</span>
+            </div>
+            <p class="card-subtitle">Progressive daily discount schedule designed to clear produce inventory before expiration.</p>
+
+            <div class="markdown-timeline">
+              <div class="timeline-step">
+                <div class="step-day">Day 0</div>
+                <div class="step-discount">0% Off</div>
+                <div class="step-desc">Fresh Harvest • Peak Price</div>
+              </div>
+              <div class="timeline-step">
+                <div class="step-day">Day 1</div>
+                <div class="step-discount">15% Off</div>
+                <div class="step-desc">Early Markdown • High Demand</div>
+              </div>
+              <div class="timeline-step">
+                <div class="step-day">Day 2</div>
+                <div class="step-discount">35% Off</div>
+                <div class="step-desc">Accelerated Clearance</div>
+              </div>
+              <div class="timeline-step highlight">
+                <div class="step-day">Day 3</div>
+                <div class="step-discount">60% Flash Sale</div>
+                <div class="step-desc">Zero-Spoilage Final Clearance</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB 5: FARM-TO-FORK TRACEABILITY -->
+        <section id="tab-traceability" class="tab-page">
+          <div class="glass-card trace-card">
+            <div class="card-header">
+              <h3>📜 Farm-to-Fork Harvest Storyteller</h3>
+              <span class="badge ai-badge">QR Traceability</span>
+            </div>
+            <div class="trace-search">
+              <input type="text" id="batch-id-input" placeholder="Enter Batch ID e.g. BATCH-2026-SPINACH-09" value="BATCH-2026-SPINACH-09" />
+              <button id="btn-trace-batch" class="btn btn-primary">Trace Harvest Origin</button>
+            </div>
+
+            <div id="trace-output" class="trace-output-container">
+              <div class="farm-meta">
+                <div class="farm-item">🏡 <strong>Farm Origin:</strong> Vexite Organic Green Farm (Nashik, India)</div>
+                <div class="farm-item">🌱 <strong>Soil Health Index:</strong> pH 6.8 | High NPK Balance</div>
+                <div class="farm-item">📅 <strong>Harvest Timestamp:</strong> Oct 9, 2026 • 06:30 AM</div>
+                <div class="farm-item">🛡️ <strong>Pesticide Status:</strong> 100% Residue-Free Organic Certified</div>
+              </div>
+
+              <div class="story-box">
+                <h4>AI Harvest Story:</h4>
+                <p>Grown in the mineral-rich soil of Nashik, these crisp spinach leaves were harvested at dawn using sustainable organic drip-irrigation. Packed with iron, folate, and vitamins A & C, this batch delivers 100% farm-fresh nutrition with zero chemical preservatives.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
