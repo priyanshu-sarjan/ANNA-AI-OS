@@ -1,72 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Focus Flow — Deep Work Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              obsidian: {
+                800: '#111827',
+                900: '#0b0f17',
+                950: '#070a0f',
+              },
+              neon: {
+                cyan: '#00f2fe',
+                blue: '#4facfe',
+                emerald: '#00f5a0',
+                amber: '#ffb703',
+                purple: '#a855f7'
+              }
+            },
+            fontFamily: {
+              heading: ['Outfit', 'sans-serif'],
+              body: ['Plus Jakarta Sans', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
     <link rel="stylesheet" href="./style.css" />
     <script src="./app.js" type="module"></script>
   </head>
-  <body>
-    <div id="app-container">
-      <!-- Header Bar -->
-      <header class="app-header">
-        <div class="brand">
-          <div class="logo-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
-            </svg>
+  <body class="bg-obsidian-950 text-slate-100 font-body min-h-screen antialiased selection:bg-neon-cyan selection:text-black">
+    <div id="app-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col min-h-screen">
+      
+      <!-- HEADER BAR -->
+      <header class="bg-obsidian-900/80 backdrop-blur-xl border border-white/10 rounded-3xl p-4 sm:p-6 mb-8 shadow-2xl">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+          
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-neon-cyan to-neon-blue flex items-center justify-center text-black text-2xl font-bold shadow-lg shadow-neon-cyan/20">
+              🎯
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h1 class="font-heading text-2xl sm:text-3xl font-extrabold tracking-tight text-white">Focus Flow</h1>
+                <span class="px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider rounded-full bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30">Anna AI OS</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-400 font-medium">Deep Work Studio & Ambient Soundscape Generator</p>
+            </div>
           </div>
-          <div class="brand-text">
-            <span class="app-title">Focus Flow</span>
-            <span class="app-badge">Anna AI OS</span>
+
+          <!-- Navigation Tabs -->
+          <nav class="flex items-center gap-1.5 bg-black/40 p-1.5 rounded-full border border-white/10 overflow-x-auto max-w-full">
+            <button class="nav-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-full transition-all flex items-center gap-2 text-slate-300 hover:text-white" data-tab="timer">
+              <span>⏱️ Timer</span>
+            </button>
+            <button class="nav-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-full transition-all flex items-center gap-2 text-slate-300 hover:text-white" data-tab="ai-planner">
+              <span>⚡ AI Planner</span>
+            </button>
+            <button class="nav-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-full transition-all flex items-center gap-2 text-slate-300 hover:text-white" data-tab="tasks">
+              <span>📋 Tasks</span>
+            </button>
+            <button class="nav-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-full transition-all flex items-center gap-2 text-slate-300 hover:text-white" data-tab="analytics">
+              <span>📊 Analytics</span>
+            </button>
+          </nav>
+
+          <!-- Badges -->
+          <div class="hidden lg:flex items-center gap-3">
+            <span id="streak-badge" class="px-3 py-1.5 text-xs font-semibold rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30">🔥 1 Day Streak</span>
+            <span id="connection-status" class="px-3 py-1.5 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Host Connected</span>
           </div>
-        </div>
 
-        <nav class="nav-tabs">
-          <button class="nav-btn active" data-tab="timer">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>Timer</span>
-          </button>
-          <button class="nav-btn" data-tab="ai-planner">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-            <span>AI Planner</span>
-          </button>
-          <button class="nav-btn" data-tab="tasks">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            <span>Tasks</span>
-          </button>
-          <button class="nav-btn" data-tab="analytics">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-            <span>Analytics</span>
-          </button>
-        </nav>
-
-        <div class="header-status">
-          <span id="streak-badge" class="badge streak-badge" title="Current Daily Streak">🔥 1 Day</span>
-          <span id="connection-status" class="badge status-badge">Connected</span>
         </div>
       </header>
 
-      <!-- Main Layout -->
-      <main class="main-content">
+      <!-- MAIN CONTENT -->
+      <main class="flex-1">
+
         <!-- TAB 1: TIMER STUDIO -->
         <section id="tab-timer" class="tab-page active">
-          <div class="timer-grid">
-            <!-- Left: Main Radial Timer -->
-            <div class="glass-card timer-card">
-              <div class="mode-selector">
-                <button class="mode-btn active" data-mode="focus" data-duration="25">Focus (25m)</button>
-                <button class="mode-btn" data-mode="short_break" data-duration="5">Short Break (5m)</button>
-                <button class="mode-btn" data-mode="long_break" data-duration="15">Long Break (15m)</button>
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left: Main Timer Radial Card -->
+            <div class="lg:col-span-7 bg-obsidian-900/70 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl flex flex-col items-center justify-center text-center relative">
+              
+              <!-- Mode selector -->
+              <div class="flex items-center gap-2 bg-black/40 p-1.5 rounded-full border border-white/10 mb-8">
+                <button class="mode-btn active px-4 py-2 text-xs font-semibold rounded-full text-slate-300 hover:text-white transition-all" data-mode="focus" data-duration="25">Focus (25m)</button>
+                <button class="mode-btn px-4 py-2 text-xs font-semibold rounded-full text-slate-300 hover:text-white transition-all" data-mode="short_break" data-duration="5">Short Break (5m)</button>
+                <button class="mode-btn px-4 py-2 text-xs font-semibold rounded-full text-slate-300 hover:text-white transition-all" data-mode="long_break" data-duration="15">Long Break (15m)</button>
               </div>
 
-              <div class="timer-display-container">
-                <svg class="progress-ring" width="280" height="280">
+              <!-- SVG Progress Ring -->
+              <div class="relative w-72 h-72 flex items-center justify-center mb-8">
+                <svg class="progress-ring transform -rotate-90" width="280" height="280">
                   <defs>
                     <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stop-color="#00f2fe" />
@@ -77,110 +113,113 @@
                       <stop offset="100%" stop-color="#00d9f5" />
                     </linearGradient>
                   </defs>
-                  <circle class="ring-bg" cx="140" cy="140" r="120" />
-                  <circle id="timer-progress-ring" class="ring-fill" cx="140" cy="140" r="120" />
+                  <circle class="ring-bg" cx="140" cy="140" r="120" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="12" />
+                  <circle id="timer-progress-ring" class="ring-fill" cx="140" cy="140" r="120" fill="none" stroke="url(#ringGradient)" stroke-width="12" stroke-linecap="round" stroke-dasharray="753.98" stroke-dashoffset="0" />
                 </svg>
 
-                <div class="timer-center-content">
-                  <div id="current-task-label" class="current-task-label">Select or type a focus task</div>
-                  <div id="timer-countdown" class="timer-countdown">25:00</div>
-                  <div id="timer-status-text" class="timer-status-text">Ready to focus</div>
+                <div class="absolute flex flex-col items-center justify-center">
+                  <span id="current-task-label" class="text-xs text-slate-400 max-w-[180px] truncate mb-1">Deep Work Session</span>
+                  <span id="timer-countdown" class="font-heading text-6xl font-black text-white tracking-tight drop-shadow-[0_0_20px_rgba(0,242,254,0.3)]">25:00</span>
+                  <span id="timer-status-text" class="text-xs font-bold text-neon-cyan uppercase tracking-wider mt-1">Ready to focus</span>
                 </div>
               </div>
 
-              <div class="timer-controls">
-                <button id="btn-start" class="btn btn-primary btn-lg">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <!-- Timer Controls -->
+              <div class="flex items-center gap-4">
+                <button id="btn-start" class="px-8 py-3.5 bg-gradient-to-r from-neon-cyan to-neon-blue text-black font-bold rounded-full hover:opacity-95 transition-all shadow-xl shadow-neon-cyan/25 transform hover:-translate-y-0.5 flex items-center gap-2">
                   <span>Start Focus</span>
                 </button>
-                <button id="btn-pause" class="btn btn-secondary btn-lg hidden">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                <button id="btn-pause" class="hidden px-8 py-3.5 bg-white/10 text-white font-bold rounded-full hover:bg-white/20 transition-all border border-white/20 flex items-center gap-2">
                   <span>Pause</span>
                 </button>
-                <button id="btn-reset" class="btn btn-icon" title="Reset Timer">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                <button id="btn-reset" class="w-12 h-12 rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-all flex items-center gap-2 justify-center" title="Reset">
+                  🔄
                 </button>
-                <button id="btn-skip" class="btn btn-icon" title="Skip Session">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+                <button id="btn-skip" class="w-12 h-12 rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-all flex items-center gap-2 justify-center" title="Skip">
+                  ⏭️
                 </button>
               </div>
+
             </div>
 
-            <!-- Right Column: Quick Active Task & Ambient Sound Engine -->
-            <div class="right-panel">
-              <!-- Active Task Card -->
-              <div class="glass-card active-task-card">
-                <div class="card-header">
-                  <h3>🎯 Active Target</h3>
-                  <button id="btn-quick-plan" class="btn btn-sm btn-ghost">AI Plan Goal</button>
+            <!-- Right Column: Active Task & Soundscape -->
+            <div class="lg:col-span-5 space-y-8">
+              
+              <!-- Active Target Card -->
+              <div class="bg-obsidian-900/70 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="font-heading font-bold text-lg text-white">🎯 Active Focus Target</h3>
+                  <button id="btn-quick-plan" class="text-xs font-semibold text-neon-cyan hover:underline">AI Plan Goal</button>
                 </div>
-                <div class="task-input-group">
-                  <input type="text" id="active-task-input" placeholder="What are you focusing on right now?" />
-                  <button id="btn-set-task" class="btn btn-sm btn-secondary">Set</button>
-                </div>
-                <div id="quick-subtasks" class="quick-subtasks-list">
-                  <!-- Filled dynamically -->
+                <div class="flex gap-2 mb-4">
+                  <input type="text" id="active-task-input" placeholder="What are you focusing on?" class="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:border-neon-cyan outline-none" />
+                  <button id="btn-set-task" class="px-4 py-2.5 bg-white/10 text-white font-semibold text-sm rounded-xl hover:bg-white/20">Set</button>
                 </div>
               </div>
 
               <!-- Ambient Audio Soundscape Card -->
-              <div class="glass-card ambient-card">
-                <div class="card-header">
-                  <h3>🎧 Focus Soundscape</h3>
-                  <span class="badge synth-badge">Web Audio Synth</span>
+              <div class="bg-obsidian-900/70 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl space-y-4">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-heading font-bold text-lg text-white">🎧 Focus Soundscape</h3>
+                  <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">Web Audio Synth</span>
                 </div>
-                <p class="card-subtitle">Synthesize background focus soundscapes directly in your browser.</p>
-                <div class="sound-controls">
-                  <div class="sound-item">
-                    <div class="sound-info">
-                      <span class="sound-name">🌧️ Rain & Ocean Waves</span>
-                      <button class="sound-toggle-btn" data-sound="rain">Play</button>
+                <p class="text-xs text-slate-400">Synthesize background focus soundscapes directly in your browser.</p>
+
+                <div class="space-y-3">
+                  <div class="bg-black/40 p-3 rounded-2xl border border-white/5 space-y-2">
+                    <div class="flex items-center justify-between text-xs font-semibold">
+                      <span>🌧️ Rain & Ocean Waves</span>
+                      <button class="sound-toggle-btn px-3 py-1 text-xs rounded-full border border-white/10 bg-white/5 text-slate-300 hover:text-white" data-sound="rain">Play</button>
                     </div>
-                    <input type="range" class="sound-volume" data-sound="rain" min="0" max="1" step="0.05" value="0.5" />
+                    <input type="range" class="sound-volume w-full accent-neon-cyan" data-sound="rain" min="0" max="1" step="0.05" value="0.5" />
                   </div>
-                  <div class="sound-item">
-                    <div class="sound-info">
-                      <span class="sound-name">💨 Pink Noise (Deep Focus)</span>
-                      <button class="sound-toggle-btn" data-sound="pink">Play</button>
+
+                  <div class="bg-black/40 p-3 rounded-2xl border border-white/5 space-y-2">
+                    <div class="flex items-center justify-between text-xs font-semibold">
+                      <span>💨 Pink Noise (Deep Focus)</span>
+                      <button class="sound-toggle-btn px-3 py-1 text-xs rounded-full border border-white/10 bg-white/5 text-slate-300 hover:text-white" data-sound="pink">Play</button>
                     </div>
-                    <input type="range" class="sound-volume" data-sound="pink" min="0" max="1" step="0.05" value="0.4" />
+                    <input type="range" class="sound-volume w-full accent-neon-cyan" data-sound="pink" min="0" max="1" step="0.05" value="0.4" />
                   </div>
-                  <div class="sound-item">
-                    <div class="sound-info">
-                      <span class="sound-name">🧘 Binaural Alpha Wave (8Hz)</span>
-                      <button class="sound-toggle-btn" data-sound="binaural">Play</button>
+
+                  <div class="bg-black/40 p-3 rounded-2xl border border-white/5 space-y-2">
+                    <div class="flex items-center justify-between text-xs font-semibold">
+                      <span>🧘 Binaural Alpha Wave (8Hz)</span>
+                      <button class="sound-toggle-btn px-3 py-1 text-xs rounded-full border border-white/10 bg-white/5 text-slate-300 hover:text-white" data-sound="binaural">Play</button>
                     </div>
-                    <input type="range" class="sound-volume" data-sound="binaural" min="0" max="1" step="0.05" value="0.3" />
+                    <input type="range" class="sound-volume w-full accent-neon-cyan" data-sound="binaural" min="0" max="1" step="0.05" value="0.3" />
                   </div>
                 </div>
               </div>
+
             </div>
+
           </div>
         </section>
 
         <!-- TAB 2: AI FOCUS PLANNER -->
         <section id="tab-ai-planner" class="tab-page">
-          <div class="planner-layout">
-            <div class="glass-card planner-input-card">
-              <div class="card-header">
-                <h3>⚡ AI Goal Breakdown</h3>
-                <span class="badge ai-badge">Executa Plugin</span>
+          <div class="max-w-3xl mx-auto space-y-8">
+            <div class="bg-obsidian-900/70 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-heading font-extrabold text-2xl text-white">⚡ AI Goal Breakdown</h3>
+                <span class="px-3 py-1 text-xs font-semibold rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">Executa Plugin</span>
               </div>
-              <p class="card-subtitle">Enter your objective and available time. The AI tool will generate a structured interval plan with subtasks.</p>
+              <p class="text-slate-400 text-sm mb-6">Enter your objective and available time. The AI tool will generate a structured interval plan with subtasks.</p>
 
-              <form id="ai-planner-form">
-                <div class="form-group">
-                  <label for="planner-goal-input">Goal or Project Name</label>
-                  <input type="text" id="planner-goal-input" placeholder="e.g., Implement Firebase Auth and unit tests" required />
+              <form id="ai-planner-form" class="space-y-4">
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Goal or Project Name</label>
+                  <input type="text" id="planner-goal-input" placeholder="e.g. Implement Firebase Auth and unit tests" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-slate-100 text-sm focus:border-neon-cyan outline-none" required />
                 </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="planner-minutes-input">Available Minutes</label>
-                    <input type="number" id="planner-minutes-input" value="60" min="15" max="360" step="15" />
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Available Minutes</label>
+                    <input type="number" id="planner-minutes-input" value="60" min="15" max="360" step="15" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-slate-100 text-sm focus:border-neon-cyan outline-none" />
                   </div>
-                  <div class="form-group btn-group-end">
-                    <button type="submit" id="btn-generate-plan" class="btn btn-primary btn-full">
-                      <span>Generate Focus Plan</span>
+                  <div class="flex items-end">
+                    <button type="submit" id="btn-generate-plan" class="w-full py-3.5 bg-gradient-to-r from-neon-cyan to-neon-blue text-black font-bold rounded-xl hover:opacity-95 transition-all shadow-lg shadow-neon-cyan/20">
+                      Generate Focus Plan
                     </button>
                   </div>
                 </div>
@@ -188,153 +227,122 @@
             </div>
 
             <!-- Planner Output -->
-            <div id="planner-output-card" class="glass-card planner-output-card hidden">
-              <div class="card-header">
-                <h3 id="plan-goal-title">Focus Plan</h3>
-                <button id="btn-apply-plan" class="btn btn-sm btn-primary">Apply to Tasks & Start</button>
+            <div id="planner-output-card" class="hidden bg-obsidian-900/70 backdrop-blur-xl border border-neon-cyan/30 rounded-3xl p-8 shadow-2xl space-y-6">
+              <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <h3 id="plan-goal-title" class="font-heading font-extrabold text-2xl text-white">Focus Plan</h3>
+                <button id="btn-apply-plan" class="px-5 py-2 bg-neon-cyan text-black font-bold text-xs rounded-xl hover:bg-neon-blue transition-all">Apply to Tasks & Start</button>
               </div>
-              <div class="plan-meta-grid">
-                <div class="meta-item">
-                  <span class="meta-label">Total Time</span>
-                  <span id="meta-total-time" class="meta-value">60 mins</span>
+              <div class="grid grid-cols-3 gap-4 text-center">
+                <div class="bg-black/40 p-4 rounded-2xl border border-white/5">
+                  <div id="meta-total-time" class="font-heading text-2xl font-bold text-neon-cyan">60 mins</div>
+                  <div class="text-xs text-slate-400 mt-1">Total Time</div>
                 </div>
-                <div class="meta-item">
-                  <span class="meta-label">Focus Blocks</span>
-                  <span id="meta-blocks" class="meta-value">2 Sessions</span>
+                <div class="bg-black/40 p-4 rounded-2xl border border-white/5">
+                  <div id="meta-blocks" class="font-heading text-2xl font-bold text-neon-cyan">2 Sessions</div>
+                  <div class="text-xs text-slate-400 mt-1">Focus Blocks</div>
                 </div>
-                <div class="meta-item">
-                  <span class="meta-label">Intervals</span>
-                  <span id="meta-intervals" class="meta-value">25m Focus / 5m Break</span>
+                <div class="bg-black/40 p-4 rounded-2xl border border-white/5">
+                  <div id="meta-intervals" class="font-heading text-2xl font-bold text-neon-cyan">25m / 5m</div>
+                  <div class="text-xs text-slate-400 mt-1">Intervals</div>
                 </div>
               </div>
-
-              <div class="plan-subtasks-section">
-                <h4>Actionable Subtasks:</h4>
-                <ul id="plan-subtasks-list" class="plan-subtasks-list">
-                  <!-- Populated by AI -->
+              <div class="space-y-3">
+                <h4 class="font-bold text-sm text-slate-200">Actionable Subtasks:</h4>
+                <ul id="plan-subtasks-list" class="space-y-2 text-sm text-slate-300">
+                  <!-- Populated -->
                 </ul>
               </div>
-
-              <div id="plan-tips" class="plan-tips-box">
-                💡 <strong>Tip:</strong> Keep a single goal in mind per 25m interval.
+              <div id="plan-tips" class="bg-cyan-500/10 border-l-4 border-cyan-400 p-4 rounded-r-2xl text-xs text-slate-300">
+                💡 Keep a single goal in mind per 25m interval.
               </div>
             </div>
           </div>
         </section>
 
-        <!-- TAB 3: TASKS MANAGER -->
+        <!-- TAB 3: TASKS -->
         <section id="tab-tasks" class="tab-page">
-          <div class="glass-card tasks-card">
-            <div class="card-header">
-              <h3>📋 Focus Task Board</h3>
-              <div class="task-filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="pending">Pending</button>
-                <button class="filter-btn" data-filter="completed">Completed</button>
+          <div class="max-w-4xl mx-auto bg-obsidian-900/70 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl space-y-6">
+            <div class="flex items-center justify-between">
+              <h3 class="font-heading font-extrabold text-2xl text-white">📋 Focus Task Board</h3>
+              <div class="flex gap-2">
+                <button class="filter-btn active px-3.5 py-1 text-xs font-semibold rounded-full border border-white/10 text-slate-300" data-filter="all">All</button>
+                <button class="filter-btn px-3.5 py-1 text-xs font-semibold rounded-full border border-white/10 text-slate-400" data-filter="pending">Pending</button>
+                <button class="filter-btn px-3.5 py-1 text-xs font-semibold rounded-full border border-white/10 text-slate-400" data-filter="completed">Completed</button>
               </div>
             </div>
 
-            <!-- Add Task Form -->
-            <form id="add-task-form" class="add-task-form">
-              <input type="text" id="task-title-input" placeholder="Add a new task..." required />
-              <select id="task-priority-input">
+            <!-- Form -->
+            <form id="add-task-form" class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+              <input type="text" id="task-title-input" placeholder="Add a new task..." class="sm:col-span-6 bg-black/50 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:border-neon-cyan outline-none" required />
+              <select id="task-priority-input" class="sm:col-span-3 bg-black/50 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-slate-100 outline-none">
                 <option value="high">High Priority</option>
                 <option value="medium" selected>Medium Priority</option>
                 <option value="low">Low Priority</option>
               </select>
-              <input type="number" id="task-est-input" value="1" min="1" max="10" title="Estimated Pomodoros" />
-              <button type="submit" class="btn btn-primary">Add Task</button>
+              <input type="number" id="task-est-input" value="1" min="1" max="10" class="sm:col-span-1 bg-black/50 border border-white/10 rounded-xl px-2 py-2.5 text-sm text-slate-100 text-center outline-none" />
+              <button type="submit" class="sm:col-span-2 py-2.5 bg-gradient-to-r from-neon-cyan to-neon-blue text-black font-bold rounded-xl text-sm hover:opacity-95">Add</button>
             </form>
 
-            <!-- Tasks List -->
-            <div id="tasks-list" class="tasks-list">
-              <!-- Dynamically rendered -->
+            <div id="tasks-list" class="space-y-2">
+              <!-- Dynamically Rendered -->
             </div>
           </div>
         </section>
 
-        <!-- TAB 4: ANALYTICS & STATS -->
+        <!-- TAB 4: ANALYTICS -->
         <section id="tab-analytics" class="tab-page">
-          <div class="analytics-grid">
-            <div class="glass-card stat-card">
-              <div class="stat-icon cyan">⏱️</div>
-              <div class="stat-info">
-                <span class="stat-value" id="stat-total-hours">0.0 hrs</span>
-                <span class="stat-label">Total Deep Work Time</span>
+          <div class="max-w-5xl mx-auto space-y-8">
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-6">
+              <div class="bg-obsidian-900/70 border border-white/10 p-6 rounded-3xl text-center space-y-2">
+                <div class="text-3xl">⏱️</div>
+                <div id="stat-total-hours" class="font-heading text-3xl font-extrabold text-neon-cyan">0.0 hrs</div>
+                <div class="text-xs text-slate-400">Total Deep Work</div>
+              </div>
+              <div class="bg-obsidian-900/70 border border-white/10 p-6 rounded-3xl text-center space-y-2">
+                <div class="text-3xl">🎯</div>
+                <div id="stat-completed-sessions" class="font-heading text-3xl font-extrabold text-neon-cyan">0</div>
+                <div class="text-xs text-slate-400">Completed Sessions</div>
+              </div>
+              <div class="bg-obsidian-900/70 border border-white/10 p-6 rounded-3xl text-center space-y-2">
+                <div class="text-3xl">🔥</div>
+                <div id="stat-streak" class="font-heading text-3xl font-extrabold text-neon-cyan">1 Day</div>
+                <div class="text-xs text-slate-400">Current Streak</div>
+              </div>
+              <div class="bg-obsidian-900/70 border border-white/10 p-6 rounded-3xl text-center space-y-2">
+                <div class="text-3xl">⚡</div>
+                <div id="stat-rating" class="font-heading text-xl font-bold text-neon-cyan">On Track</div>
+                <div class="text-xs text-slate-400">Efficiency Rating</div>
               </div>
             </div>
 
-            <div class="glass-card stat-card">
-              <div class="stat-icon purple">🎯</div>
-              <div class="stat-info">
-                <span class="stat-value" id="stat-completed-sessions">0</span>
-                <span class="stat-label">Completed Focus Sessions</span>
+            <!-- History Table -->
+            <div class="bg-obsidian-900/70 border border-white/10 p-8 rounded-3xl space-y-4">
+              <div class="flex items-center justify-between">
+                <h3 class="font-heading font-extrabold text-2xl text-white">📜 Session History</h3>
+                <button id="btn-clear-history" class="text-xs text-slate-400 hover:text-white">Clear Log</button>
               </div>
-            </div>
-
-            <div class="glass-card stat-card">
-              <div class="stat-icon emerald">🔥</div>
-              <div class="stat-info">
-                <span class="stat-value" id="stat-streak">1 Day</span>
-                <span class="stat-label">Current Streak</span>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm border-collapse">
+                  <thead>
+                    <tr class="border-b border-white/10 text-slate-400">
+                      <th class="py-3 px-4">Date & Time</th>
+                      <th class="py-3 px-4">Task Name</th>
+                      <th class="py-3 px-4">Mode</th>
+                      <th class="py-3 px-4">Duration</th>
+                      <th class="py-3 px-4">Score</th>
+                    </tr>
+                  </thead>
+                  <tbody id="history-table-body">
+                    <!-- Populated -->
+                  </tbody>
+                </table>
               </div>
-            </div>
-
-            <div class="glass-card stat-card">
-              <div class="stat-icon amber">⚡</div>
-              <div class="stat-info">
-                <span class="stat-value" id="stat-rating">Getting Started</span>
-                <span class="stat-label">Efficiency Level</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- History Table Card -->
-          <div class="glass-card history-card">
-            <div class="card-header">
-              <h3>📜 Recent Session History</h3>
-              <button id="btn-clear-history" class="btn btn-sm btn-ghost">Clear Log</button>
-            </div>
-            <div class="history-table-wrapper">
-              <table class="history-table">
-                <thead>
-                  <tr>
-                    <th>Date & Time</th>
-                    <th>Task Name</th>
-                    <th>Mode</th>
-                    <th>Duration</th>
-                    <th>Score</th>
-                  </tr>
-                </thead>
-                <tbody id="history-table-body">
-                  <tr class="empty-row"><td colspan="5">No sessions logged yet. Complete a timer to record your focus history!</td></tr>
-                </tbody>
-              </table>
             </div>
           </div>
         </section>
-      </main>
-    </div>
 
-    <!-- Break Advice Modal -->
-    <div id="break-modal" class="modal-backdrop hidden">
-      <div class="glass-card modal-card">
-        <div class="modal-header">
-          <h3 id="modal-title">🎉 Focus Block Complete!</h3>
-          <button id="btn-close-modal" class="btn-close">&times;</button>
-        </div>
-        <div class="modal-body">
-          <p id="modal-message">Awesome work! Time to step back and refresh.</p>
-          <div id="break-rec-box" class="break-rec-box">
-            <h4 id="break-rec-title">Hydrate & Stretch</h4>
-            <ol id="break-rec-steps"></ol>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button id="btn-start-break" class="btn btn-primary">Start Short Break (5m)</button>
-          <button id="btn-dismiss-modal" class="btn btn-secondary">Close</button>
-        </div>
-      </div>
+      </main>
+
     </div>
   </body>
 </html>

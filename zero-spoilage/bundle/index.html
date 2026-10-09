@@ -1,73 +1,166 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>0-Spoilage — Smart Pantry & Farm-to-Fork Studio</title>
+    <title>0-Spoilage — Natural & Fresh Agri Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              forest: {
+                800: '#143627',
+                900: '#0b2318',
+                950: '#06150e',
+              },
+              agri: {
+                green: '#2d6a4f',
+                light: '#52b788',
+                lime: '#74c69d',
+                bright: '#00f5a0',
+                gold: '#ffb703'
+              }
+            },
+            fontFamily: {
+              heading: ['Outfit', 'sans-serif'],
+              body: ['Plus Jakarta Sans', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
     <link rel="stylesheet" href="./style.css" />
     <script src="./app.js" type="module"></script>
   </head>
-  <body>
-    <div id="app-container">
-      <!-- Header Bar -->
-      <header class="app-header">
-        <div class="brand">
-          <div class="logo-icon">
-            <span>🍏</span>
+  <body class="bg-forest-950 text-slate-100 font-body min-h-screen antialiased selection:bg-agri-bright selection:text-black">
+    <div id="app-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col min-h-screen">
+      
+      <!-- HERO & BRAND HEADER -->
+      <header class="bg-forest-900/80 backdrop-blur-xl border border-agri-light/20 rounded-3xl p-4 sm:p-6 mb-8 shadow-2xl">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+          
+          <!-- Logo & Title -->
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-agri-bright to-agri-light flex items-center justify-center text-black text-2xl font-bold shadow-lg shadow-agri-bright/20">
+              🌿
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h1 class="font-heading text-2xl sm:text-3xl font-extrabold tracking-tight text-white">0-Spoilage</h1>
+                <span class="px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider rounded-full bg-agri-bright/10 text-agri-bright border border-agri-bright/30">Natural & Fresh</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-400 font-medium">Anna AI OS • Perishable Food Waste Prevention Assistant</p>
+            </div>
           </div>
-          <div class="brand-text">
-            <span class="app-title">0-Spoilage</span>
-            <span class="app-badge">AgriFresh • Anna AI OS</span>
+
+          <!-- Navigation Tabs -->
+          <nav class="flex items-center gap-1.5 bg-black/40 p-1.5 rounded-full border border-white/10 overflow-x-auto max-w-full">
+            <button class="nav-btn active px-4 py-2 text-xs sm:text-sm font-semibold rounded-full transition-all flex items-center gap-2 text-slate-300 hover:text-white" data-tab="pantry">
+              <span>🛒 Pantry & Fridge</span>
+            </button>
+            <button class="nav-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-full transition-all flex items-center gap-2 text-slate-300 hover:text-white" data-tab="grading">
+              <span>📸 Quality Scanner</span>
+            </button>
+            <button class="nav-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-full transition-all flex items-center gap-2 text-slate-300 hover:text-white" data-tab="recipes">
+              <span>🍳 Anti-Waste Recipes</span>
+            </button>
+            <button class="nav-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-full transition-all flex items-center gap-2 text-slate-300 hover:text-white" data-tab="pricing">
+              <span>📈 Dynamic Markdown</span>
+            </button>
+            <button class="nav-btn px-4 py-2 text-xs sm:text-sm font-semibold rounded-full transition-all flex items-center gap-2 text-slate-300 hover:text-white" data-tab="traceability">
+              <span>📜 Farm Traceability</span>
+            </button>
+          </nav>
+
+          <!-- Badges -->
+          <div class="hidden lg:flex items-center gap-3">
+            <span id="expiring-badge" class="px-3 py-1.5 text-xs font-semibold rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/30">0 Expiring Soon</span>
+            <span id="connection-status" class="px-3 py-1.5 text-xs font-semibold rounded-full bg-agri-bright/10 text-agri-bright border border-agri-bright/30">Host Connected</span>
           </div>
-        </div>
 
-        <nav class="nav-tabs">
-          <button class="nav-btn active" data-tab="pantry">
-            <span>🛒 Pantry & Fridge</span>
-          </button>
-          <button class="nav-btn" data-tab="grading">
-            <span>📸 Quality Scanner</span>
-          </button>
-          <button class="nav-btn" data-tab="recipes">
-            <span>🍳 Anti-Waste Recipes</span>
-          </button>
-          <button class="nav-btn" data-tab="pricing">
-            <span>📈 Dynamic Markdown</span>
-          </button>
-          <button class="nav-btn" data-tab="traceability">
-            <span>📜 Farm Traceability</span>
-          </button>
-        </nav>
-
-        <div class="header-status">
-          <span id="expiring-badge" class="badge urgent-badge">0 Expiring Soon</span>
-          <span id="connection-status" class="badge status-badge">Connected</span>
         </div>
       </header>
 
-      <!-- Main Layout -->
-      <main class="main-content">
+      <!-- AGRICULTURAL HERO BANNER (INSPIRED BY DESIGN REFERENCE) -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-forest-900 via-forest-800 to-agri-green border border-agri-light/20 p-8 mb-8 shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-4">
+            <span class="inline-flex items-center gap-2 px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-agri-bright/20 text-agri-bright border border-agri-bright/40">
+              🌱 Zero Spoilage Agriculture 2026
+            </span>
+            <h2 class="font-heading text-4xl sm:text-5xl font-black text-white tracking-tight leading-none uppercase">
+              Agriculture <br />
+              <span class="text-agri-bright">Natural & Fresh</span>
+            </h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl">
+              Eliminate post-harvest crop loss, track pantry shelf-life in real time, and generate AI-powered zero-waste recipes. Built for farmers, retailers, and households.
+            </p>
+            <div class="flex flex-wrap gap-4 pt-2">
+              <button onclick="document.querySelector('.nav-btn[data-tab=\'grading\']').click()" class="px-6 py-3 bg-agri-bright text-black font-bold rounded-2xl hover:bg-agri-light transition-all transform hover:-translate-y-0.5 shadow-lg shadow-agri-bright/25">
+                Scan Quality & Ripeness
+              </button>
+              <button onclick="document.querySelector('.nav-btn[data-tab=\'recipes\']').click()" class="px-6 py-3 bg-white/10 text-white font-semibold rounded-2xl hover:bg-white/20 transition-all border border-white/20 backdrop-blur-md">
+                Cook Zero-Waste Recipes
+              </button>
+            </div>
+          </div>
+
+          <!-- Feature Image / Quick Action Grid -->
+          <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+            <div class="bg-black/40 backdrop-blur-md p-5 rounded-2xl border border-white/10 flex flex-col justify-between hover:border-agri-bright/40 transition-all">
+              <div class="text-3xl mb-2">🥬</div>
+              <h3 class="font-heading font-bold text-white text-lg">Fresh Produce</h3>
+              <p class="text-xs text-slate-400">Track ripeness grade & cold storage rules.</p>
+            </div>
+            <div class="bg-black/40 backdrop-blur-md p-5 rounded-2xl border border-white/10 flex flex-col justify-between hover:border-agri-bright/40 transition-all">
+              <div class="text-3xl mb-2">📊</div>
+              <h3 class="font-heading font-bold text-white text-lg">Dynamic Markdown</h3>
+              <p class="text-xs text-slate-400">4-day discount clearance engine.</p>
+            </div>
+            <div class="bg-black/40 backdrop-blur-md p-5 rounded-2xl border border-white/10 flex flex-col justify-between hover:border-agri-bright/40 transition-all">
+              <div class="text-3xl mb-2">📜</div>
+              <h3 class="font-heading font-bold text-white text-lg">Farm Trace</h3>
+              <p class="text-xs text-slate-400">QR soil health & harvest story.</p>
+            </div>
+            <div class="bg-black/40 backdrop-blur-md p-5 rounded-2xl border border-white/10 flex flex-col justify-between hover:border-agri-bright/40 transition-all">
+              <div class="text-3xl mb-2">🍳</div>
+              <h3 class="font-heading font-bold text-white text-lg">Anti-Waste AI</h3>
+              <p class="text-xs text-slate-400">Recipes for expiring ingredients.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN CONTENT PAGES -->
+      <main class="flex-1">
+
         <!-- TAB 1: PANTRY & FRIDGE TRACKER -->
         <section id="tab-pantry" class="tab-page active">
-          <div class="pantry-grid">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
             <!-- Left: Add Item Form -->
-            <div class="glass-card form-card">
-              <div class="card-header">
-                <h3>➕ Quick Add Grocery Item</h3>
-                <span class="badge ai-badge">Smart Tracker</span>
+            <div class="lg:col-span-4 bg-forest-900/70 backdrop-blur-xl border border-agri-light/20 rounded-3xl p-6 shadow-2xl">
+              <div class="flex items-center justify-between mb-6">
+                <h3 class="font-heading font-bold text-xl text-white">➕ Quick Add Grocery Item</h3>
+                <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-agri-bright/10 text-agri-bright border border-agri-bright/30">Smart Tracker</span>
               </div>
-              <form id="add-grocery-form">
-                <div class="form-group">
-                  <label for="item-name-input">Item Name</label>
-                  <input type="text" id="item-name-input" placeholder="e.g. Organic Milk, Avocados, Spinach" required />
+
+              <form id="add-grocery-form" class="space-y-4">
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Item Name</label>
+                  <input type="text" id="item-name-input" placeholder="e.g. Organic Milk, Avocados, Spinach" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-slate-100 text-sm focus:border-agri-bright focus:ring-1 focus:ring-agri-bright outline-none transition-all" required />
                 </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="item-category-select">Category</label>
-                    <select id="item-category-select">
+
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Category</label>
+                    <select id="item-category-select" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-3 text-slate-100 text-sm focus:border-agri-bright outline-none transition-all">
                       <option value="Produce">Produce / Veggies</option>
                       <option value="Fruits">Fruits</option>
                       <option value="Dairy">Dairy & Eggs</option>
@@ -76,93 +169,107 @@
                       <option value="Pantry">Pantry / Staples</option>
                     </select>
                   </div>
-                  <div class="form-group">
-                    <label for="item-qty-input">Quantity</label>
-                    <input type="text" id="item-qty-input" placeholder="e.g. 500g, 1L, 2 bunches" />
+                  <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Quantity</label>
+                    <input type="text" id="item-qty-input" placeholder="e.g. 500g, 1L" class="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-3 text-slate-100 text-sm focus:border-agri-bright outline-none transition-all" />
                   </div>
                 </div>
-                <div class="form-group">
-                  <label for="item-expiry-input">Expiry Date</label>
-                  <input type="date" id="item-expiry-input" required />
+
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Expiry Date</label>
+                  <input type="date" id="item-expiry-input" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-slate-100 text-sm focus:border-agri-bright outline-none transition-all" required />
                 </div>
-                <button type="submit" class="btn btn-primary btn-full">Add to Pantry Inventory</button>
+
+                <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-agri-bright to-agri-light text-black font-bold rounded-xl hover:opacity-95 transition-all shadow-lg shadow-agri-bright/20 transform hover:-translate-y-0.5">
+                  Add to Pantry Inventory
+                </button>
               </form>
             </div>
 
             <!-- Right: Inventory List -->
-            <div class="glass-card list-card">
-              <div class="card-header">
-                <h3>🥗 Pantry & Refrigerator Inventory</h3>
-                <div class="list-controls">
-                  <button id="btn-scan-expiring" class="btn btn-sm btn-danger">🔥 Scan Expiring (<= 3 Days)</button>
+            <div class="lg:col-span-8 bg-forest-900/70 backdrop-blur-xl border border-agri-light/20 rounded-3xl p-6 shadow-2xl flex flex-col">
+              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+                <div>
+                  <h3 class="font-heading font-bold text-xl text-white">🥗 Pantry & Refrigerator Inventory</h3>
+                  <p class="text-xs text-slate-400">Live perishable items sorted by urgency.</p>
                 </div>
+                <button id="btn-scan-expiring" class="px-4 py-2 bg-rose-500/20 text-rose-300 border border-rose-500/40 rounded-xl text-xs font-bold hover:bg-rose-500/30 transition-all">
+                  🔥 Scan Expiring (<= 3 Days)
+                </button>
               </div>
 
-              <div class="inventory-filters">
-                <button class="filter-btn active" data-filter="all">All Items</button>
-                <button class="filter-btn" data-filter="critical">Critical (<= 1 Day)</button>
-                <button class="filter-btn" data-filter="urgent">Urgent (<= 3 Days)</button>
-                <button class="filter-btn" data-filter="safe">Safe (> 3 Days)</button>
+              <!-- Filter Buttons -->
+              <div class="flex items-center gap-2 mb-6 overflow-x-auto pb-2">
+                <button class="filter-btn active px-3.5 py-1.5 text-xs font-semibold rounded-full border border-agri-bright/30 bg-agri-bright/10 text-agri-bright transition-all" data-filter="all">All Items</button>
+                <button class="filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-full border border-white/10 text-slate-400 hover:text-white transition-all" data-filter="critical">Critical (<= 1 Day)</button>
+                <button class="filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-full border border-white/10 text-slate-400 hover:text-white transition-all" data-filter="urgent">Urgent (<= 3 Days)</button>
+                <button class="filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-full border border-white/10 text-slate-400 hover:text-white transition-all" data-filter="safe">Safe (> 3 Days)</button>
               </div>
 
-              <div id="inventory-list" class="inventory-list">
+              <!-- Inventory List Container -->
+              <div id="inventory-list" class="space-y-3 flex-1 overflow-y-auto max-h-[500px] pr-1">
                 <!-- Dynamically Rendered -->
               </div>
             </div>
+
           </div>
         </section>
 
         <!-- TAB 2: AI RIPENESS & QUALITY SCANNER -->
         <section id="tab-grading" class="tab-page">
-          <div class="grading-layout">
-            <div class="glass-card grading-form-card">
-              <div class="card-header">
-                <h3>📸 Produce Visual Quality & Ripeness Grading</h3>
-                <span class="badge vision-badge">Multimodal AI Vision</span>
+          <div class="max-w-4xl mx-auto space-y-8">
+            <div class="bg-forest-900/70 backdrop-blur-xl border border-agri-light/20 rounded-3xl p-8 shadow-2xl">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-heading font-extrabold text-2xl text-white">📸 Produce Visual Quality & Ripeness Grading</h3>
+                <span class="px-3 py-1 text-xs font-semibold rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/40">Multimodal AI Vision</span>
               </div>
-              <p class="card-subtitle">Select harvested produce and visual condition to estimate commercial grade, shelf life, and optimal cold storage rules.</p>
+              <p class="text-slate-400 text-sm mb-6">Select produce and observed visual condition to estimate commercial grade, shelf-life, and cold storage temperature rules.</p>
 
-              <form id="grading-form">
-                <div class="form-group">
-                  <label for="produce-name">Produce Name</label>
-                  <input type="text" id="produce-name" placeholder="e.g., Cherry Tomatoes, Mangoes, Apples" value="Cherry Tomatoes" required />
+              <form id="grading-form" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Produce Name</label>
+                    <input type="text" id="produce-name" value="Cherry Tomatoes" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-slate-100 text-sm focus:border-agri-bright outline-none transition-all" required />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Visual Condition</label>
+                    <select id="visual-condition" class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-slate-100 text-sm focus:border-agri-bright outline-none transition-all">
+                      <option value="Fresh & Firm (Peak Harvest)">Fresh & Firm (Peak Harvest)</option>
+                      <option value="Slight blemish / surface scarring">Slight blemish / surface scarring</option>
+                      <option value="Soft spots / Overripe">Soft spots / Overripe</option>
+                      <option value="Discolored / Leaf Wilting">Discolored / Leaf Wilting</option>
+                    </select>
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="visual-condition">Observed Visual Condition</label>
-                  <select id="visual-condition">
-                    <option value="Fresh & Firm (Peak Harvest)">Fresh & Firm (Peak Harvest)</option>
-                    <option value="Slight blemish / surface scarring">Slight blemish / surface scarring</option>
-                    <option value="Soft spots / Overripe">Soft spots / Overripe</option>
-                    <option value="Discolored / Leaf Wilting">Discolored / Leaf Wilting</option>
-                  </select>
-                </div>
-                <button type="submit" id="btn-run-grading" class="btn btn-primary btn-full">Run AI Quality Grading</button>
+                <button type="submit" id="btn-run-grading" class="w-full py-4 bg-gradient-to-r from-agri-bright to-agri-light text-black font-extrabold rounded-2xl hover:opacity-95 transition-all shadow-xl shadow-agri-bright/25">
+                  Run AI Quality Grading
+                </button>
               </form>
             </div>
 
-            <!-- Grading Results Card -->
-            <div id="grading-results-card" class="glass-card grading-results-card hidden">
-              <div class="card-header">
-                <h3 id="grade-produce-title">Cherry Tomatoes Quality Scorecard</h3>
-                <span id="grade-badge" class="badge status-badge">Grade A Export</span>
+            <!-- Results Card -->
+            <div id="grading-results-card" class="hidden bg-forest-900/70 backdrop-blur-xl border border-agri-bright/30 rounded-3xl p-8 shadow-2xl space-y-6">
+              <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <h3 id="grade-produce-title" class="font-heading font-extrabold text-2xl text-white">Quality Scorecard</h3>
+                <span id="grade-badge" class="px-4 py-1.5 text-xs font-bold rounded-full bg-agri-bright/20 text-agri-bright border border-agri-bright/40">Grade A Export</span>
               </div>
-              <div class="grade-stats-grid">
-                <div class="grade-stat-item">
-                  <span class="stat-num" id="grade-ripeness">85%</span>
-                  <span class="stat-lbl">Ripeness Rating</span>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                <div class="bg-black/40 p-4 rounded-2xl border border-white/5">
+                  <div id="grade-ripeness" class="font-heading text-3xl font-extrabold text-agri-bright">85%</div>
+                  <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Ripeness Rating</div>
                 </div>
-                <div class="grade-stat-item">
-                  <span class="stat-num" id="grade-shelf">7 Days</span>
-                  <span class="stat-lbl">Est. Remaining Shelf Life</span>
+                <div class="bg-black/40 p-4 rounded-2xl border border-white/5">
+                  <div id="grade-shelf" class="font-heading text-3xl font-extrabold text-agri-bright">7 Days</div>
+                  <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Est. Shelf Life</div>
                 </div>
-                <div class="grade-stat-item">
-                  <span class="stat-num" id="grade-temp">4°C - 7°C</span>
-                  <span class="stat-lbl">Optimal Storage Temp</span>
+                <div class="bg-black/40 p-4 rounded-2xl border border-white/5">
+                  <div id="grade-temp" class="font-heading text-3xl font-extrabold text-agri-bright">4°C - 7°C</div>
+                  <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Storage Temp</div>
                 </div>
               </div>
-              <div class="advice-box">
-                <h4>Markdown Schedule:</h4>
-                <p id="grade-markdown">Day 0: 0% Discount (Peak Farm-Gate Rate)</p>
+              <div class="bg-agri-bright/10 border-l-4 border-agri-bright p-4 rounded-r-2xl">
+                <h4 class="text-agri-bright font-bold text-sm mb-1">Recommended Markdown Schedule:</h4>
+                <p id="grade-markdown" class="text-xs text-slate-300">Day 0: 0% Markdown (Peak Price)</p>
               </div>
             </div>
           </div>
@@ -170,24 +277,30 @@
 
         <!-- TAB 3: ZERO-WASTE RECIPES -->
         <section id="tab-recipes" class="tab-page">
-          <div class="recipes-layout">
-            <div class="glass-card recipes-header-card">
-              <div class="card-header">
-                <h3>🍳 Zero-Waste Recipe Generator</h3>
-                <span class="badge ai-badge">Executa LLM Tool</span>
+          <div class="max-w-5xl mx-auto space-y-8">
+            <div class="bg-forest-900/70 backdrop-blur-xl border border-agri-light/20 rounded-3xl p-8 shadow-2xl">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-heading font-extrabold text-2xl text-white">🍳 Zero-Waste Recipe Generator</h3>
+                <span class="px-3 py-1 text-xs font-semibold rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">Executa LLM Tool</span>
               </div>
-              <p class="card-subtitle">Select expiring items from your pantry to generate anti-waste recipes before food spoils.</p>
-              <div class="recipe-action-bar">
-                <button id="btn-use-expiring-ingredients" class="btn btn-secondary">Auto-Select Expiring Ingredients</button>
-                <button id="btn-generate-recipes" class="btn btn-primary">Generate 3 Anti-Waste Recipes</button>
+              <p class="text-slate-400 text-sm mb-6">Select expiring pantry items to generate delicious anti-waste recipes before food spoils.</p>
+
+              <div class="flex flex-wrap gap-4 mb-6">
+                <button id="btn-use-expiring-ingredients" class="px-5 py-2.5 bg-white/10 text-white font-semibold text-sm rounded-xl hover:bg-white/20 transition-all border border-white/10">
+                  Auto-Select Expiring Ingredients
+                </button>
+                <button id="btn-generate-recipes" class="px-6 py-2.5 bg-agri-bright text-black font-bold text-sm rounded-xl hover:bg-agri-light transition-all shadow-lg shadow-agri-bright/20">
+                  Generate 3 Anti-Waste Recipes
+                </button>
               </div>
-              <div id="selected-ingredients-tags" class="ingredients-tags-container">
+
+              <div id="selected-ingredients-tags" class="flex flex-wrap gap-2 pt-2">
                 <!-- Tags -->
               </div>
             </div>
 
-            <!-- Recipes List -->
-            <div id="recipes-results-grid" class="recipes-results-grid">
+            <!-- Recipes Grid -->
+            <div id="recipes-results-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
               <!-- Dynamically Rendered -->
             </div>
           </div>
@@ -195,66 +308,68 @@
 
         <!-- TAB 4: DYNAMIC PRICING MARKDOWN -->
         <section id="tab-pricing" class="tab-page">
-          <div class="glass-card pricing-card">
-            <div class="card-header">
-              <h3>📈 Dynamic Freshness Markdown Engine</h3>
-              <span class="badge amber-badge">Zero-Spoilage Algorithm</span>
+          <div class="max-w-4xl mx-auto bg-forest-900/70 backdrop-blur-xl border border-agri-light/20 rounded-3xl p-8 shadow-2xl">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-heading font-extrabold text-2xl text-white">📈 Dynamic Freshness Markdown Engine</h3>
+              <span class="px-3 py-1 text-xs font-semibold rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">Zero-Spoilage Algorithm</span>
             </div>
-            <p class="card-subtitle">Progressive daily discount schedule designed to clear produce inventory before expiration.</p>
+            <p class="text-slate-400 text-sm mb-8">Progressive daily discount schedule designed to clear produce inventory before expiration.</p>
 
-            <div class="markdown-timeline">
-              <div class="timeline-step">
-                <div class="step-day">Day 0</div>
-                <div class="step-discount">0% Off</div>
-                <div class="step-desc">Fresh Harvest • Peak Price</div>
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+              <div class="bg-black/40 border border-white/10 p-6 rounded-2xl text-center space-y-2">
+                <span class="text-xs text-slate-400">Day 0</span>
+                <div class="font-heading text-3xl font-extrabold text-agri-bright">0% Off</div>
+                <span class="text-xs text-slate-400">Fresh Harvest</span>
               </div>
-              <div class="timeline-step">
-                <div class="step-day">Day 1</div>
-                <div class="step-discount">15% Off</div>
-                <div class="step-desc">Early Markdown • High Demand</div>
+              <div class="bg-black/40 border border-white/10 p-6 rounded-2xl text-center space-y-2">
+                <span class="text-xs text-slate-400">Day 1</span>
+                <div class="font-heading text-3xl font-extrabold text-agri-bright">15% Off</div>
+                <span class="text-xs text-slate-400">Early Markdown</span>
               </div>
-              <div class="timeline-step">
-                <div class="step-day">Day 2</div>
-                <div class="step-discount">35% Off</div>
-                <div class="step-desc">Accelerated Clearance</div>
+              <div class="bg-black/40 border border-white/10 p-6 rounded-2xl text-center space-y-2">
+                <span class="text-xs text-slate-400">Day 2</span>
+                <div class="font-heading text-3xl font-extrabold text-agri-bright">35% Off</div>
+                <span class="text-xs text-slate-400">Clearance</span>
               </div>
-              <div class="timeline-step highlight">
-                <div class="step-day">Day 3</div>
-                <div class="step-discount">60% Flash Sale</div>
-                <div class="step-desc">Zero-Spoilage Final Clearance</div>
+              <div class="bg-rose-950/40 border border-rose-500/40 p-6 rounded-2xl text-center space-y-2">
+                <span class="text-xs text-rose-300 font-semibold">Day 3</span>
+                <div class="font-heading text-3xl font-extrabold text-rose-400">60% Off</div>
+                <span class="text-xs text-rose-300">Flash Clearance</span>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- TAB 5: FARM-TO-FORK TRACEABILITY -->
+        <!-- TAB 5: FARM TRACEABILITY -->
         <section id="tab-traceability" class="tab-page">
-          <div class="glass-card trace-card">
-            <div class="card-header">
-              <h3>📜 Farm-to-Fork Harvest Storyteller</h3>
-              <span class="badge ai-badge">QR Traceability</span>
+          <div class="max-w-4xl mx-auto bg-forest-900/70 backdrop-blur-xl border border-agri-light/20 rounded-3xl p-8 shadow-2xl space-y-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-heading font-extrabold text-2xl text-white">📜 Farm-to-Fork Harvest Storyteller</h3>
+              <span class="px-3 py-1 text-xs font-semibold rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">QR Traceability</span>
             </div>
-            <div class="trace-search">
-              <input type="text" id="batch-id-input" placeholder="Enter Batch ID e.g. BATCH-2026-SPINACH-09" value="BATCH-2026-SPINACH-09" />
-              <button id="btn-trace-batch" class="btn btn-primary">Trace Harvest Origin</button>
+            
+            <div class="flex gap-4">
+              <input type="text" id="batch-id-input" value="BATCH-2026-SPINACH-09" class="flex-1 bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-slate-100 text-sm focus:border-agri-bright outline-none" />
+              <button id="btn-trace-batch" class="px-6 py-3 bg-agri-bright text-black font-bold rounded-xl hover:bg-agri-light transition-all">Trace Origin</button>
             </div>
 
-            <div id="trace-output" class="trace-output-container">
-              <div class="farm-meta">
-                <div class="farm-item">🏡 <strong>Farm Origin:</strong> Vexite Organic Green Farm (Nashik, India)</div>
-                <div class="farm-item">🌱 <strong>Soil Health Index:</strong> pH 6.8 | High NPK Balance</div>
-                <div class="farm-item">📅 <strong>Harvest Timestamp:</strong> Oct 9, 2026 • 06:30 AM</div>
-                <div class="farm-item">🛡️ <strong>Pesticide Status:</strong> 100% Residue-Free Organic Certified</div>
+            <div id="trace-output" class="space-y-6 pt-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-black/40 p-6 rounded-2xl border border-white/10 text-sm">
+                <div>🏡 <strong>Farm:</strong> Vexite Organic Farm (Nashik, India)</div>
+                <div>🌱 <strong>Soil Index:</strong> pH 6.8 (High NPK Balance)</div>
+                <div>📅 <strong>Harvest:</strong> Oct 9, 2026 • 06:30 AM</div>
+                <div>🛡️ <strong>Pesticide Status:</strong> 100% Organic Certified</div>
               </div>
-
-              <div class="story-box">
-                <h4>AI Harvest Story:</h4>
-                <p>Grown in the mineral-rich soil of Nashik, these crisp spinach leaves were harvested at dawn using sustainable organic drip-irrigation. Packed with iron, folate, and vitamins A & C, this batch delivers 100% farm-fresh nutrition with zero chemical preservatives.</p>
+              <div class="bg-cyan-500/10 border-l-4 border-cyan-400 p-4 rounded-r-2xl">
+                <h4 class="text-cyan-400 font-bold text-sm mb-1">AI Harvest Story:</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">Grown in the mineral-rich soil of Nashik, these crisp spinach leaves were harvested at dawn using sustainable organic drip-irrigation. Packed with iron, folate, and vitamins A & C, this batch delivers 100% farm-fresh nutrition with zero chemical preservatives.</p>
               </div>
             </div>
           </div>
         </section>
+
       </main>
+
     </div>
   </body>
 </html>
