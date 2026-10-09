@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tool-dev-zero-spoilage"
+version = "0.1.0"
+description = "Executa for the zero-spoilage Anna App"
+requires-python = ">=3.10"
+
+[project.scripts]
+"tool-dev-zero-spoilage" = "zero_spoilage_plugin:main"
+
+[tool.setuptools]
+py-modules = ["zero_spoilage_plugin"]
