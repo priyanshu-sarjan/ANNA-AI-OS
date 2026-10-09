@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "name": "anna-ai-os",
+  "rewrites": [
+    { "source": "/api/focus-flow", "destination": "/api/focus_flow.py" },
+    { "source": "/api/zero-spoilage", "destination": "/api/zero_spoilage.py" },
+    { "source": "/focus-flow/(.*)", "destination": "/focus-flow/bundle/$1" },
+    { "source": "/focus-flow", "destination": "/focus-flow/bundle/index.html" },
+    { "source": "/zero-spoilage/(.*)", "destination": "/zero-spoilage/bundle/$1" },
+    { "source": "/zero-spoilage", "destination": "/zero-spoilage/bundle/index.html" }
+  ]
+}

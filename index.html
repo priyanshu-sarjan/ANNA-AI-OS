@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anna AI OS — Founding Builder Apps Ecosystem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg-dark: #080b10;
+        --bg-card: rgba(17, 24, 39, 0.7);
+        --border-card: rgba(255, 255, 255, 0.08);
+        --text-main: #f3f4f6;
+        --text-muted: #9ca3af;
+        --accent-cyan: #00f2fe;
+        --accent-blue: #4facfe;
+        --accent-emerald: #00f5a0;
+        --accent-purple: #a855f7;
+        --grad-primary: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+        --grad-emerald: linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%);
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        background: var(--bg-dark);
+        background-image: 
+          radial-gradient(at 0% 0%, rgba(0, 242, 254, 0.08) 0px, transparent 50%),
+          radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.08) 0px, transparent 50%);
+        color: var(--text-main);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        min-height: 100vh;
+        padding: 40px 24px;
+      }
+      .container { max-width: 1200px; margin: 0 auto; }
+      header { text-align: center; margin-bottom: 48px; }
+      .badge {
+        display: inline-block;
+        padding: 6px 16px;
+        border-radius: 999px;
+        background: rgba(0, 242, 254, 0.1);
+        color: var(--accent-cyan);
+        border: 1px solid rgba(0, 242, 254, 0.3);
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 16px;
+      }
+      h1 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 3rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        background: linear-gradient(90deg, #fff, #9ca3af);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 12px;
+      }
+      p.subtitle { color: var(--text-muted); font-size: 1.1rem; max-width: 680px; margin: 0 auto; }
+
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 32px; margin-bottom: 48px; }
+      .app-card {
+        background: var(--bg-card);
+        backdrop-filter: blur(16px);
+        border: 1px solid var(--border-card);
+        border-radius: 24px;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.3s ease, border-color 0.3s ease;
+      }
+      .app-card:hover { transform: translateY(-4px); border-color: var(--accent-cyan); }
+      .card-icon {
+        width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 20px;
+      }
+      .card-icon.cyan { background: var(--grad-primary); }
+      .card-icon.emerald { background: var(--grad-emerald); }
+      h2 { font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-bottom: 8px; }
+      p.desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.6; }
+      .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+      .tag { padding: 4px 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-card); border-radius: 999px; font-size: 0.75rem; color: var(--text-muted); }
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 12px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.2s ease;
+      }
+      .btn-cyan { background: var(--grad-primary); color: #000; box-shadow: 0 4px 16px rgba(0,242,254,0.3); }
+      .btn-emerald { background: var(--grad-emerald); color: #000; box-shadow: 0 4px 16px rgba(0,245,160,0.3); }
+      footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border-card); padding-top: 24px; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <span class="badge">Founding Builder Challenge 2026</span>
+        <h1>Anna AI OS Apps Ecosystem</h1>
+        <p class="subtitle">Production-ready AI Apps built by Priyanshu Sarjan for the Anna AI OS Founding Builder Challenge. Schema 3 manifest certified.</p>
+      </header>
+
+      <div class="grid">
+        <!-- Card 1: Focus Flow -->
+        <div class="app-card">
+          <div>
+            <div class="card-icon cyan">🎯</div>
+            <h2>Focus Flow</h2>
+            <p class="desc">AI-powered Pomodoro timer, ambient Web Audio soundscape synthesizer, and deep work session planner.</p>
+            <div class="tags">
+              <span class="tag">Pomodoro Timer</span>
+              <span class="tag">Web Audio Synth</span>
+              <span class="tag">Python Executa</span>
+              <span class="tag">Schema 3</span>
+            </div>
+          </div>
+          <a href="/focus-flow" class="btn btn-cyan">Launch Focus Flow Studio →</a>
+        </div>
+
+        <!-- Card 2: 0-Spoilage -->
+        <div class="app-card">
+          <div>
+            <div class="card-icon emerald">🍏</div>
+            <h2>0-Spoilage (AgriFresh)</h2>
+            <p class="desc">Smart pantry tracker, AI produce quality & ripeness grader, zero-waste recipe studio, and farm traceability storyteller.</p>
+            <div class="tags">
+              <span class="tag">Pantry Tracker</span>
+              <span class="tag">Quality Scanner</span>
+              <span class="tag">Anti-Waste Recipes</span>
+              <span class="tag">Farm Traceability</span>
+            </div>
+          </div>
+          <a href="/zero-spoilage" class="btn btn-emerald">Launch 0-Spoilage Studio →</a>
+        </div>
+      </div>
+
+      <footer>
+        <p>Built with ❤️ by <strong>Priyanshu Sarjan</strong> for Anna AI OS Founding Builder Challenge 2026.</p>
+      </footer>
+    </div>
+  </body>
+</html>
